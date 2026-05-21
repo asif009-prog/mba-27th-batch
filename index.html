@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Official student portal for the MBA 27th Batch, Department of Finance, University of Dhaka. Access academic resources, course materials, and quick portals.">
+    <title>MBA 27th Batch | Department of Finance, University of Dhaka</title>
+    
+    <!-- Google Fonts - DM Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ==========================================
+           CSS CUSTOM VARIABLES & COLOR ARCHITECTURE
+           ========================================== */
+        :root {
+            --maroon-primary: #7A0019;
+            --maroon-dark: #540011;
+            --gold-accent: #D4AF37;
+            --gold-hover: #F3CD55;
+            
+            --transition-smooth: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --transition-fast: all 0.2s ease;
+
+            --bg-main: #F8F9FA;
+            --bg-surface: #FFFFFF;
+            --bg-glass: rgba(255, 255, 255, 0.85);
+            --text-primary: #1D1E20;
+            --text-secondary: #5F6368;
+            --border-color: rgba(0, 0, 0, 0.06);
+            --card-shadow: 0 10px 30px rgba(122, 0, 25, 0.04), 0 1px 8px rgba(0, 0, 0, 0.02);
+            --hero-gradient: linear-gradient(135deg, #7A0019 0%, #3A000C 100%);
+        }
+
+        [data-theme="dark"] {
+            --bg-main: #0B0E14;
+            --bg-surface: #131822;
+            --bg-glass: rgba(19, 24, 34, 0.85);
+            --text-primary: #F1F3F5;
+            --text-secondary: #9A9E96;
+            --border-color: rgba(255, 255, 255, 0.05);
+            --card-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            --hero-gradient: linear-gradient(135deg, #3A000C 0%, #150004 100%);
+        }
+
+        /* ==========================================
+           GLOBAL RESET & FONTS SETUP
+           ========================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-family: 'DM Sans', sans-serif;
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            transition: var(--transition-smooth);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        section {
+            padding: 90px 0;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* ==========================================
+           STICKY GLASSMORPHISM NAVBAR
+           ========================================== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: var(--bg-glass);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            transition: var(--transition-smooth);
+        }
+
+        .navbar-scrolled {
+            padding: 4px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: var(--maroon-primary);
+            transition: var(--transition-fast);
+        }
+
+        [data-theme="dark"] .logo {
+            color: #FFFFFF;
+        }
+
+        .logo .highlight {
+            color: var(--gold-accent);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .nav-link {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            position: relative;
+            padding: 4px 0;
+            transition: var(--transition-fast);
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--maroon-primary);
+        }
+
+        [data-theme="dark"] .nav-link:hover, [data-theme="dark"] .nav-link.active {
+            color: var(--gold-accent);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--gold-accent);
+            transition: var(--transition-fast);
+        }
+
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .theme-btn {
+            background: none;
+            border: 1px solid var(--border-color);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            color: var(--text-primary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            transition: var(--transition-smooth);
+            background-color: var(--bg-surface);
+        }
+
+        .theme-btn:hover {
+            transform: rotate(15deg);
+            border-color: var(--gold-accent);
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            background: none;
+            border: none;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .hamburger .bar {
+            width: 25px;
+            height: 2px;
+            background-color: var(--text-primary);
+            border-radius: 2px;
+            transition: var(--transition-fast);
+        }
+
+        /* ==========================================
+           1. HERO SECTION
+           ========================================== */
+        .hero-section {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--hero-gradient);
+            color: #FFFFFF;
+            text-align: center;
+            padding-top: 100px;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(rgba(212, 175, 55, 0.15) 1px, transparent 0);
+            background-size: 30px 30px;
+            opacity: 0.4;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 18px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--gold-accent);
+            margin-bottom: 24px;
+        }
+
+        .hero-title {
+            font-size: 4.2rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            line-height: 1.1;
+            margin-bottom: 12px;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .hero-subtitle {
+            font-size: 1.9rem;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 8px;
+        }
+
+        .hero-institution {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--gold-accent);
+            letter-spacing: 0.5px;
+        }
+
+        .divider {
+            width: 60px;
+            height: 3px;
+            background-color: var(--gold-accent);
+            margin: 32px auto;
+            border-radius: 2px;
+        }
+
+        .hero-motto {
+            font-size: 1.5rem;
+            font-style: italic;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 40px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 30px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: var(--gold-accent);
+            color: var(--maroon-primary);
+            margin-right: 16px;
+            border: 1px solid var(--gold-accent);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--gold-hover);
+            border-color: var(--gold-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(214, 175, 87, 0.25);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #FFFFFF;
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: #FFFFFF;
+            transform: translateY(-2px);
+        }
+
+        /* ==========================================
+           GENERIC STRUCTURE COMPONENTS
+           ========================================== */
+        .section-header {
+            text-align: center;
+            max-width: 650px;
+            margin: 0 auto 60px auto;
+        }
+
+        .section-tagline {
+            display: block;
+            color: var(--maroon-primary);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1.5px;
+            margin-bottom: 10px;
+        }
+
+        [data-theme="dark"] .section-tagline {
+            color: var(--gold-accent);
+        }
+
+        .section-title {
+            font-size: 2.4rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 16px;
+        }
+
+        .section-desc {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+        }
+
+        .grid {
+            display: grid;
+            gap: 32px;
+        }
+
+        .card {
+            background-color: var(--bg-surface);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--card-shadow);
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* ==========================================
+           3. COURSE MATERIALS SECTION
+           ========================================== */
+        .grid-courses {
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        }
+
+        .course-card {
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 250px;
+        }
+
+        .card-accent-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: var(--maroon-primary);
+            transition: var(--transition-smooth);
+        }
+
+        [data-theme="dark"] .card-accent-line {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .course-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(122, 0, 25, 0.06);
+        }
+
+        [data-theme="dark"] .course-card:hover {
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .course-card:hover .card-accent-line {
+            height: 6px;
+            background-color: var(--gold-accent);
+        }
+
+        .course-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .course-code {
+            font-size: 0.85rem;
+            font-weight: 700;
+            background-color: rgba(122, 0, 25, 0.06);
+            color: var(--maroon-primary);
+            padding: 4px 12px;
+            border-radius: 4px;
+            letter-spacing: 0.5px;
+        }
+
+        [data-theme="dark"] .course-code {
+            background-color: rgba(214, 175, 55, 0.1);
+            color: var(--gold-accent);
+        }
+
+        .course-credit {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .course-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            line-height: 1.4;
+            color: var(--text-primary);
+            margin-bottom: 28px;
+            flex-grow: 1;
+        }
+
+        .card-btn {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 18px;
+            background-color: var(--bg-main);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: var(--transition-fast);
+        }
+
+        .card-btn i {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            transition: var(--transition-fast);
+        }
+
+        .card-btn:hover {
+            background-color: var(--maroon-primary);
+            color: #FFFFFF;
+            border-color: var(--maroon-primary);
+        }
+
+        [data-theme="dark"] .card-btn:hover {
+            background-color: var(--gold-accent);
+            color: var(--maroon-dark);
+            border-color: var(--gold-accent);
+        }
+
+        .card-btn:hover i {
+            color: inherit;
+            transform: translate(2px, -2px);
+        }
+
+        /* ==========================================
+           4. QUICK ACCESS SECTION
+           ========================================== */
+        .links-section {
+            background-color: rgba(122, 0, 25, 0.015);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        [data-theme="dark"] .links-section {
+            background-color: rgba(0, 0, 0, 0.15);
+        }
+
+        .grid-links {
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        }
+
+        .link-card {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition-smooth);
+        }
+
+.multi-links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 14px;
+}
+
+.mini-link-btn {
+    display: inline-block;
+    padding: 10px 14px;
+    border-radius: 6px;
+    background-color: var(--bg-main);
+    border: 1px solid var(--border-color);
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: var(--transition-fast);
+}
+
+.mini-link-btn:hover {
+    background-color: var(--maroon-primary);
+    color: #FFFFFF;
+    border-color: var(--maroon-primary);
+}
+
+[data-theme="dark"] .mini-link-btn:hover {
+    background-color: var(--gold-accent);
+    color: var(--maroon-dark);
+    border-color: var(--gold-accent);
+}
+
+        .link-icon-box {
+            width: 54px;
+            height: 54px;
+            background-color: rgba(122, 0, 25, 0.05);
+            color: var(--maroon-primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            flex-shrink: 0;
+            transition: var(--transition-smooth);
+        }
+
+        [data-theme="dark"] .link-icon-box {
+            background-color: rgba(214, 175, 55, 0.08);
+            color: var(--gold-accent);
+        }
+
+        .link-card-content h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: var(--text-primary);
+        }
+
+        .link-card-sub {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.3;
+        }
+
+        .arrow-icon {
+            margin-left: auto;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            opacity: 0.5;
+            transition: var(--transition-fast);
+        }
+
+        .link-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--maroon-primary);
+            box-shadow: 0 15px 30px rgba(122, 0, 25, 0.06);
+        }
+
+        [data-theme="dark"] .link-card:hover {
+            border-color: var(--gold-accent);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        }
+
+        .link-card:hover .link-icon-box {
+            background-color: var(--maroon-primary);
+            color: #FFFFFF;
+        }
+
+        [data-theme="dark"] .link-card:hover .link-icon-box {
+            background-color: var(--gold-accent);
+            color: var(--maroon-dark);
+        }
+
+        .link-card:hover .arrow-icon {
+            opacity: 1;
+            transform: translateX(3px);
+            color: var(--maroon-primary);
+        }
+
+        [data-theme="dark"] .link-card:hover .arrow-icon {
+            color: var(--gold-accent);
+        }
+
+        /* ==========================================
+           5. ABOUT BATCH SECTION
+           ========================================== */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1.25fr 0.75fr;
+            gap: 64px;
+            align-items: center;
+        }
+
+        .about-paragraph {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            text-align: justify;
+        }
+
+        .about-stat-box {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+
+        .stat-card {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            padding: 32px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+        }
+
+        .stat-num {
+            display: block;
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--maroon-primary);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        [data-theme="dark"] .stat-num {
+            color: var(--gold-accent);
+        }
+
+        .stat-label {
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-secondary);
+        }
+
+        /* ==========================================
+           CONTACT SECTION
+           ========================================== */
+        .contact-card {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 48px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .contact-info h2 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .contact-info p {
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+        }
+
+        .contact-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .contact-meta-item i {
+            color: var(--maroon-primary);
+            font-size: 1.1rem;
+            width: 20px;
+        }
+
+        [data-theme="dark"] .contact-meta-item i {
+            color: var(--gold-accent);
+        }
+
+        /* ==========================================
+           6. FOOTER
+           ========================================== */
+        .footer {
+            background-color: #11141A;
+            color: #A0A5B0;
+            padding: 64px 0 32px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .footer-brand h3 {
+            color: #FFFFFF;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .footer-brand p {
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .footer-copy-section {
+            border-top: 1px solid rgba(255, 255, 255, 0.07);
+            padding-top: 24px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+            font-size: 0.85rem;
+        }
+
+        .developer-tag {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .dev-name {
+            color: var(--gold-accent);
+            font-weight: 500;
+        }
+
+        /* ==========================================
+           REVEAL-ON-SCROLL FRAMEWORK ANIMATIONS
+           ========================================== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), 
+                        transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ==========================================
+           RESPONSIVE MEDIA QUERIES (MOBILE FIRST)
+           ========================================== */
+        @media (max-width: 992px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .hamburger.active .bar:nth-child(2) {
+                opacity: 0;
+            }
+            .hamburger.active .bar:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+            .hamburger.active .bar:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+
+            .nav-menu {
+                position: fixed;
+                top: 73px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 73px);
+                background-color: var(--bg-surface);
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 40px;
+                gap: 24px;
+                transition: var(--transition-smooth);
+                box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+                border-top: 1px solid var(--border-color);
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-link {
+                font-size: 1.2rem;
+                width: 100%;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            html {
+                font-size: 14px;
+            }
+
+            .hero-title {
+                font-size: 2.8rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.4rem;
+            }
+
+            .hero-cta-group {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+                padding: 0 20px;
+            }
+
+            .btn {
+                width: 100%;
+                margin-right: 0 !important;
+                text-align: center;
+            }
+
+            .contact-card {
+                padding: 24px;
+            }
+
+            .footer-copy-section {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- STICKY GLASSMORPHISM NAVBAR -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="#home" class="logo">
+                <span class="logo-text">MBA <span class="highlight">27</span></span>
+            </a>
+            
+            <!-- Navigation Menu Links -->
+            <nav class="nav-menu" id="navMenu">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#courses" class="nav-link">Courses</a>
+                <a href="#quick-links" class="nav-link">Quick Links</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </nav>
+            
+            <!-- Navbar Action Utility Corner -->
+            <div class="nav-actions">
+                <button id="themeToggle" class="theme-btn" aria-label="Toggle dark/light mode">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                <button class="hamburger" id="hamburgerMenu" aria-label="Open mobile navigation">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- 1. HERO SECTION -->
+        <section id="home" class="hero-section">
+            <div class="hero-overlay"></div>
+            <div class="hero-content container reveal">
+                <div class="badge">Faculty of Business Studies</div>
+                <h1 class="hero-title">MBA 27<sup>th</sup> Batch</h1>
+                <h2 class="hero-subtitle">Department of Finance</h2>
+                <p class="hero-institution">University of Dhaka</p>
+                <div class="divider"></div>
+                <p class="hero-motto">“Knowledge, Leadership & Excellence”</p>
+                <div class="hero-cta-group">
+                    <a href="#courses" class="btn btn-primary">Course Resources</a>
+                    <a href="#quick-links" class="btn btn-secondary">Quick Portals</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. COURSE MATERIALS SECTION -->
+        <section id="courses" class="section courses-section container">
+            <div class="section-header reveal">
+                <span class="section-tagline">Academic Curriculum</span>
+                <h2 class="section-title">Course Materials</h2>
+                <p class="section-desc">Access lecture slides, textbooks, and essential shared resources curated for the semester.</p>
+            </div>
+            
+            <div class="grid grid-courses">
+                <!-- Course Card 1 -->
+                <div class="card course-card reveal">
+                    <div class="card-accent-line"></div>
+                    <div class="course-meta">
+                        <span class="course-code">MFIF-501</span>
+                        <span class="course-credit"><i class="fa-regular fa-star"></i> 3 Cr.</span>
+                    </div>
+                    <h3 class="course-title">Management of Financial Institutions</h3>
+                    <!-- REPLACE HREF BELOW WITH YOUR GOOGLE DRIVE LINK -->
+                    <a href="#" target="_blank" class="card-btn">
+                        <span>Open Resources</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                </div>
+
+                <!-- Course Card 2 -->
+                <div class="card course-card reveal">
+                    <div class="card-accent-line"></div>
+                    <div class="course-meta">
+                        <span class="course-code">FDF-503</span>
+                        <span class="course-credit"><i class="fa-regular fa-star"></i> 3 Cr.</span>
+                    </div>
+                    <h3 class="course-title">Financial Derivatives</h3>
+                    <!-- REPLACE HREF BELOW WITH YOUR GOOGLE DRIVE LINK -->
+                    <a href="#" target="_blank" class="card-btn">
+                        <span>Open Resources</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                </div>
+
+                <!-- Course Card 3 -->
+                <div class="card course-card reveal">
+                    <div class="card-accent-line"></div>
+                    <div class="course-meta">
+                        <span class="course-code">FEIFMF-504</span>
+                        <span class="course-credit"><i class="fa-regular fa-star"></i> 3 Cr.</span>
+                    </div>
+                    <h3 class="course-title">Foreign Exchange & International Financial Management</h3>
+                    <!-- REPLACE HREF BELOW WITH YOUR GOOGLE DRIVE LINK -->
+                    <a href="#" target="_blank" class="card-btn">
+                        <span>Open Resources</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                </div>
+
+                <!-- Course Card 4 -->
+                <div class="card course-card reveal">
+                    <div class="card-accent-line"></div>
+                    <div class="course-meta">
+                        <span class="course-code">APMF-507</span>
+                        <span class="course-credit"><i class="fa-regular fa-star"></i> 3 Cr.</span>
+                    </div>
+                    <h3 class="course-title">Advanced Portfolio Management</h3>
+                    <!-- REPLACE HREF BELOW WITH YOUR GOOGLE DRIVE LINK -->
+                    <a href="#" target="_blank" class="card-btn">
+                        <span>Open Resources</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                </div>
+
+                <!-- Course Card 5 -->
+                <div class="card course-card reveal">
+                    <div class="card-accent-line"></div>
+                    <div class="course-meta">
+                        <span class="course-code">IFBF-545</span>
+                        <span class="course-credit"><i class="fa-regular fa-star"></i> 3 Cr.</span>
+                    </div>
+                    <h3 class="course-title">Islamic Finance and Banking</h3>
+                    <!-- REPLACE HREF BELOW WITH YOUR GOOGLE DRIVE LINK -->
+                    <a href="#" target="_blank" class="card-btn">
+                        <span>Open Resources</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. QUICK ACCESS SECTION -->
+        <section id="quick-links" class="section links-section">
+            <div class="container">
+                <div class="section-header reveal">
+                    <span class="section-tagline">Academic Utilities</span>
+                    <h2 class="section-title">Quick Access Portals</h2>
+                    <p class="section-desc">Instantly jump to external university portals, results checkers, or community learning channels.</p>
+                </div>
+                
+                <div class="grid grid-links">
+                    <!-- Link Card 1 -->
+                    <a href="http://du.ac.bd" target="_blank" class="link-card reveal">
+                        <div class="link-icon-box"><i class="fa-solid fa-graduation-cap"></i></div>
+                        <div class="link-card-content">
+                            <h3>BBA Result Portal</h3>
+                            <p class="link-card-sub">Access current and historical semester grades.</p>
+                        </div>
+                        <i class="fa-solid fa-chevron-right arrow-icon"></i>
+                    </a>
+
+                    <!-- Link Card 2 -->
+                    <a href="https://www.du.ac.bd" target="_blank" class="link-card reveal">
+                        <div class="link-icon-box"><i class="fa-solid fa-building-columns"></i></div>
+                        <div class="link-card-content">
+                            <h3>University of Dhaka Official</h3>
+                            <p class="link-card-sub">Main corporate landing site and notifications.</p>
+                        </div>
+                        <i class="fa-solid fa-chevron-right arrow-icon"></i>
+                    </a>
+
+                    <!-- Link Card 3 -->
+                    <div class="link-card reveal">
+    
+    <div class="link-icon-box">
+        <i class="fa-solid fa-note-sticky"></i>
+    </div>
+
+    <div class="link-card-content">
+        <h3>Important Notes</h3>
+
+        <p class="link-card-sub">
+            Shared repository for student exam prep.
+        </p>
+
+        <!-- Multiple Links -->
+        <div class="multi-links">
+
+            <a href="YOUR_DRIVE_LINK_1"
+               target="_blank"
+               class="mini-link-btn">
+               Notes by Jarin Apu
+            </a>
+
+            <a href="YOUR_DRIVE_LINK_2"
+               target="_blank"
+               class="mini-link-btn">
+               FOREX Notes by Keya Apu
+            </a>
+
+        </div>
+    </div>
+
+</div>
+
+                    <!-- Link Card 4 -->
+                    <a href="https://www.youtube.com" target="_blank" class="link-card reveal">
+                        <div class="link-icon-box"><i class="fa-brands fa-youtube"></i></div>
+                        <div class="link-card-content">
+                            <h3>YouTube Videos</h3>
+                            <p class="link-card-sub">Recorded lectures and online crash courses.</p>
+                        </div>
+                        <i class="fa-solid fa-chevron-right arrow-icon"></i>
+                    </a>
+                    <!-- Link Card 5 -->
+                    <a href="#" class="link-card reveal">
+                        <div class="link-icon-box"><i class="fa-solid fa-book-open"></i></div>
+                        <div class="link-card-content">
+                            <h3>2nd Semester Materials</h3>
+                            <p class="link-card-sub">Materials for the next semester.</p>
+                        </div>
+                        <i class="fa-solid fa-chevron-right arrow-icon"></i>
+                    </a>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. ABOUT BATCH SECTION -->
+        <section id="about" class="section about-section container">
+            <div class="about-grid">
+                <div class="about-text-content reveal">
+                    <span class="section-tagline">Who We Are</span>
+                    <h2 class="section-title">Cultivating the Future of Corporate Finance</h2>
+                    <p class="about-paragraph">
+                        The MBA 27th Batch of the Department of Finance, Faculty of Business Studies, University of Dhaka, stands as a premier collective of forward-thinking scholars and industry-driven leaders. Built upon a legacy of stringent quantitative analysis and macroeconomic insight, our batch merges theoretical mathematical modeling with deep strategic management paradigms. 
+                    </p>
+                    <p class="about-paragraph">
+                        Driven by our hallmark commitment to <strong>Knowledge, Leadership & Excellence</strong>, we thrive inside an environment of intense peer collaboration. Our cohort continually analyzes financial market trends, navigates systemic economic fluctuations, and spearheads pioneering corporate solutions, setting the performance standard for the university and the broader corporate ecosystem.
+                    </p>
+                </div>
+                <div class="about-stat-box reveal">
+                    <div class="stat-card">
+                        <span class="stat-num">27</span>
+                        <span class="stat-label">Batch Cohort</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-num">05</span>
+                        <span class="stat-label">Core Specializations</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section id="contact" class="section contact-section container">
+            <div class="contact-card reveal">
+                <div class="contact-info">
+                    <h2>Get in Touch</h2>
+                    <p>Have questions about resources or administrative schedules? Contact the batch representatives.</p>
+                    <div class="contact-meta-item">
+                        <i class="fa-solid fa-envelope"></i>
+                        <span>finance.mba27@du.ac.bd</span>
+                    </div>
+                    <div class="contact-meta-item">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <span>Faculty of Business Studies, University of Dhaka, Dhaka-1000</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 6. FOOTER -->
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <h3>MBA 27<sup>th</sup> Batch</h3>
+                <p>Department of Finance</p>
+                <p>Faculty of Business Studies</p>
+                <p>University of Dhaka</p>
+            </div>
+            <div class="footer-copy-section">
+                <p>&copy; 2026 MBA 27th Batch, Department of Finance, DU. All Rights Reserved.</p>
+                <p class="developer-tag">Designed & Developed by <span class="dev-name">[ASIF]</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        /**
+         * MBA 27th Batch - Main Script Context
+         */
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- STAGE 1: SYSTEM THEME ENGINE (LIGHT/DARK) ---
+            const themeToggleBtn = document.getElementById('themeToggle');
+            const themeIcon = themeToggleBtn.querySelector('i');
+            
+            const currentTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            updateThemeIcon(currentTheme);
+
+            themeToggleBtn.addEventListener('click', () => {
+                let theme = document.documentElement.getAttribute('data-theme');
+                let newTheme = (theme === 'dark') ? 'light' : 'dark';
+                
+                document.documentElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                updateThemeIcon(newTheme);
+            });
+
+            function updateThemeIcon(theme) {
+                if (theme === 'dark') {
+                    themeIcon.className = 'fa-solid fa-sun';
+                } else {
+                    themeIcon.className = 'fa-solid fa-moon';
+                }
+            }
+
+            // --- STAGE 2: MOBILE VIEW NAVIGATION SYSTEMS ---
+            const hamburgerMenu = document.getElementById('hamburgerMenu');
+            const navMenu = document.getElementById('navMenu');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            hamburgerMenu.addEventListener('click', () => {
+                hamburgerMenu.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburgerMenu.classList.remove('active');
+                    navMenu.classList.remove('active');
+                });
+            });
+
+            // --- STAGE 3: POSITION ARBITRATED SCROLL EFFECTS ---
+            const navbar = document.querySelector('.navbar');
+            
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('navbar-scrolled');
+                } else {
+                    navbar.classList.remove('navbar-scrolled');
+                }
+            });
+
+            // --- STAGE 4: INTERSECTION OBSERVER FOR ACTIVE NAV TRACKING ---
+            const sections = document.querySelectorAll('section, header');
+            const navItems = document.querySelectorAll('.nav-link');
+
+            const activeMenuOptions = {
+                root: null,
+                rootMargin: '-20% 0px -60% 0px',
+                threshold: 0
+            };
+
+            const activeMenuObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const currentId = entry.target.getAttribute('id');
+                        navItems.forEach(item => {
+                            item.classList.remove('active');
+                            if (item.getAttribute('href') === `#${currentId}`) {
+                                item.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }, activeMenuOptions);
+
+            sections.forEach(section => activeMenuObserver.observe(section));
+
+            // --- STAGE 5: VISUAL REVEAL-ON-SCROLL FRAMEWORK ---
+            const revealOptions = {
+                root: null,
+                threshold: 0.1,
+                rootMargin: '0px 0px -40px 0px'
+            };
+
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, revealOptions);
+
+            const elementsToReveal = document.querySelectorAll('.reveal');
+            elementsToReveal.forEach(element => revealObserver.observe(element));
+        });
+    </script>
+</body>
+</html>
